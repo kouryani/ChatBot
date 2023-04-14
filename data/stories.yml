@@ -1,0 +1,62 @@
+version: "3.1"
+
+stories:
+
+- story: interactive_story_1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: request_names
+  - action: name_form
+  - active_loop: name_form
+  - slot_was_set:
+    - requested_slot: name
+  - slot_was_set:
+    - name: vincent
+  - slot_was_set:
+    - requested_slot: email
+  - slot_was_set:
+    - email: john@gmail.com
+  - slot_was_set:
+    - requested_slot: order_number
+  - slot_was_set:
+    - order_number: 123456
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: utter_submit
+  - action: utter_slots_values
+
+
+- story: claim_story
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: request_claim
+  - action: claim_form
+  - active_loop: claim_form
+  - slot_was_set:
+    - requested_slot: items
+  - slot_was_set:
+    - items: multiple items
+  - slot_was_set:
+    - requested_slot: quantity
+  - slot_was_set:
+    - quantity: 10
+  - slot_was_set:
+    - requested_slot: reason
+  - slot_was_set:
+    - reason: Stolen
+  - slot_was_set:
+    - requested_slot: Comment
+  - slot_was_set:
+    - Comment: something here
+  - slot_was_set:
+    - requested_slot: attachment
+  - slot_was_set:
+    - attachment: multiple file or videos or images
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: utter_submit2
+  - action: utter_slots_values2
