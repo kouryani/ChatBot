@@ -1,0 +1,137 @@
+version: '3.1'
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+
+intents:
+- greet
+- request_names
+- request_claim
+- goodbye
+- bot_challenge
+
+
+forms:
+  name_form:
+    required_slots:
+      - name
+      - email
+      - order_number
+  claim_form:
+    required_slots:
+      - items
+      - quantity
+      - reason
+      - Comment
+      - attachment
+
+slots:
+  name:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_text
+        conditions:
+         - active_loop: name_form
+           requested_slot: name
+  email:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_text
+        conditions:
+         - active_loop: name_form
+           requested_slot: email
+  order_number:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_text
+        conditions:
+         - active_loop: name_form
+           requested_slot: order_number
+
+  name1:
+    type: text
+    mappings:
+      - type: from_text
+  
+  items:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_text
+        conditions:
+         - active_loop: claim_form
+           requested_slot: items
+  quantity:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_text
+        conditions:
+         - active_loop: claim_form
+           requested_slot: quantity
+  reason:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_text
+        conditions:
+         - active_loop: claim_form
+           requested_slot: reason
+  Comment:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_text
+        conditions:
+         - active_loop: claim_form
+           requested_slot: Comment
+  attachment:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_text
+        conditions:
+         - active_loop: claim_form
+           requested_slot: attachment
+
+responses:
+  utter_greet:
+  - text: Hey! How are you?
+  utter_goodbye:
+  - text: Bye
+  utter_iamabot:
+  - text: I am a bot, powered by Rasa.
+  utter_ask_name:
+  - text: What is your Name ?
+  utter_ask_email:
+  - text: What is your email ?
+  utter_ask_order_number:
+  - text: What is your Order Number ?
+  utter_submit:
+  - text: Ok. Thanks!
+  utter_slots_values:
+  - text: I will remember that your name is {name} and your email is  {email} and Your Order number is {order_number} and your items are {name1} !
+  utter_ask_items:
+  - text: please select your affected items ?
+  utter_ask_quantity:
+  - text: please type affected quantity ?
+  utter_ask_reason:
+  - text: Select claim reason?
+  utter_ask_Comment:
+  - text: Add a Comment to explain your claim ?
+  utter_ask_attachment:
+  - text: Upload your attachment?
+  utter_submit2:
+  - text: Ok. Thanks2!
+  utter_slots_values2:
+  - text: I will remember that your utems are {items} and your quantity is  {quantity} and Your reason is {reason} and your Comment are {Comment} and your attachment are {attachment}!
+
+actions:
+- utter_greet
+- utter_slots_values
+- utter_submit
+- validate_name_form
+- validate_claim_form
